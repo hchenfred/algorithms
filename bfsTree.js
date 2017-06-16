@@ -16,35 +16,32 @@ function TreeNode(val) {
  * @return {number[][]}
  */
 var levelOrder = function(root) {
+    if (root === null) {
+        return [];
+    }
     var result = [];
     var queue = [];
     queue.push(root);
+    
     while (queue.length !== 0) {
         var size = queue.length;
-        var currArr = [];
-        while (size > 0) {
-            var curr = queue.pop();
-            size--;
-            //console.log('ssfdsfs', queue);
-            currArr.push(curr.val);
+        var arr = []
+        for (var i = 0; i < size; i++) {
+            var curr = queue.shift();
+            arr.push(curr.val);
             if (curr.left !== null) {
-              //console.log('ssfdsfs', queue);
-              queue.push(curr.left);
+                queue.push(curr.left);
             }
-        
             if (curr.right !== null) {
-              //console.log('ssfdsfs', queue);
-             queue.push(curr.right);
-            }
-            
+                queue.push(curr.right);
+            }    
         }
-        result.push(currArr);
-       
-        
+        result.push(arr);
     }
-    console.log('result is ', result);
     return result;
 };
 
 var node1 = new TreeNode(3);
+node1.left = new TreeNode(4);
+node1.right = new TreeNode(5);
 console.log(levelOrder(node1));
